@@ -1,0 +1,7 @@
+option(WITH_JSONCPP "with jsoncpp support" ON)
+
+message("---------------------------------------------------------------------")
+message("  Settings:  (For more help do cmake -LH <srcpath>)")
+message("---------------------------------------------------------------------")
+
+message(" WITH_JSONCPP = ${WITH_JSONCPP}")
