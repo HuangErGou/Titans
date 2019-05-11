@@ -1,5 +1,6 @@
 option(WITH_JSONCPP "with jsoncpp support" ON)
 option(WITH_OPENSSL "with openssl support" ON)
+option(WITH_LWS "with libwebsockets support" ON)
 
 message("---------------------------------------------------------------------")
 message("  Settings:  (For more help do cmake -LH <srcpath>)")
@@ -7,3 +8,4 @@ message("---------------------------------------------------------------------")
 
 message(" WITH_JSONCPP = ${WITH_JSONCPP}")
 message(" WITH_OPENSSL = ${WITH_OPENSSL}")
+message(" WITH_LWS = ${WITH_LWS}")

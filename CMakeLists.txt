@@ -96,3 +96,39 @@ if (WITH_OPENSSL)
 endif() # WITH_OPENSSL
 
 # ======================================================================================================
+
+if (WITH_LWS)
+    # create libwebsockets build directory
+    execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory
+        ${CMAKE_CURRENT_BINARY_DIR}/lws_build RESULT_VARIABLE result)
+    if(result)
+        message(FATAL_ERROR "Create lws_build dir failed: ${result}")
+    endif()
+
+    # Generate lws makefile
+    execute_process(COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR}/lws_build
+        ${CMAKE_COMMAND}
+        -DLWS_WITH_SSL=OFF
+        -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/install_dir
+        ${CMAKE_CURRENT_SOURCE_DIR}/libwebsockets/libwebsockets-3.1.0)
+    if (result)
+        message(FATAL_ERROR "Build step for lws Generate lws makefile failed: ${result}")
+    endif ()
+
+    execute_process(COMMAND
+        ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR}/lws_build
+        make -j RESULT_VARIABLE result)
+    if (result)
+        message(FATAL_ERROR "Build step for lws install failed: ${result}")
+    endif ()
+
+    execute_process(COMMAND
+        ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR}/lws_build
+        make install RESULT_VARIABLE result)
+    if (result)
+        message(FATAL_ERROR "Build step for lws install failed: ${result}")
+    endif ()
+endif() # WITH_LWS
+
+# ======================================================================================================
+
